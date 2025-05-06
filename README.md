@@ -63,8 +63,6 @@ project-root/
 
 └── README.md
 
-
-
 ## Installation
 
 1. **Clone the repository**:
@@ -75,6 +73,25 @@ project-root/
    npm start
    Now open- http://localhost:5173/
    ```
+
+## Use Case Ideas
+
+* Dashboards for business intelligence.
+* Internal analytics tools.
+* Prototyping frontend for sales data.
+* Admin panels for ecommerce or inventory systems.
+
+## To Do / Future Enhancements
+
+* CSV/Excel export of filtered data.
+* Column sorting on header click.
+* Filter reset button.
+* Graph customizations (e.g., pie, line charts).
+* Backend integration with real APIs.
+
+## Author
+
+Made by **[Akshat Verma]**
 
 # React + Vite
 
