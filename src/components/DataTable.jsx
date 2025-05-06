@@ -1,10 +1,16 @@
 import { useState } from "react";
 import mockData from "../data/mockData";
+import { Chart } from "react-chartjs-2";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export default function DataTable() {
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState("id");
   const [ascending, setAscending] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const handleSort = (key) => {
     if (sortKey === key) {
@@ -27,9 +33,43 @@ export default function DataTable() {
       return 0;
     });
 
+  // Pagination logic
+  const paginatedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  // Chart data: User activity distribution
+  const chartData = {
+    labels: mockData.map((item) => item.name),
+    datasets: [
+      {
+        label: 'User Activity',
+        data: mockData.map((item) => item.activity),
+        backgroundColor: '#4CAF50',
+        borderColor: '#388E3C',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'User Activity Distribution',
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => `${context.raw} activities`,
+        },
+      },
+    },
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4 text-center">User Activity Table</h1>
+      
+      {/* Search input */}
       <input
         type="text"
         placeholder="Search..."
@@ -37,6 +77,8 @@ export default function DataTable() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+      
+      {/* Data Table */}
       <table className="w-full table-auto border border-gray-300">
         <thead className="bg-gray-100">
           <tr>
@@ -52,7 +94,7 @@ export default function DataTable() {
           </tr>
         </thead>
         <tbody>
-          {filteredData.map((user) => (
+          {paginatedData.map((user) => (
             <tr key={user.id} className="border-t border-gray-200 hover:bg-gray-50">
               <td className="p-2">{user.id}</td>
               <td className="p-2">{user.name}</td>
@@ -63,6 +105,28 @@ export default function DataTable() {
           ))}
         </tbody>
       </table>
+
+      {/* Pagination Controls */}
+      <div className="mt-4 flex justify-between items-center">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          className="px-4 py-2 bg-gray-200 rounded-md"
+        >
+          Previous
+        </button>
+        <span>Page {currentPage}</span>
+        <button
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(filteredData.length / itemsPerPage)))}
+          className="px-4 py-2 bg-gray-200 rounded-md"
+        >
+          Next
+        </button>
+      </div>
+
+      {/* Chart: User Activity */}
+      <div className="mt-8">
+        <Chart type="bar" data={chartData} options={chartOptions} />
+      </div>
     </div>
   );
 }
