@@ -173,3 +173,72 @@ table tr:hover {
   font-weight: 600;
   color: #4a5568;
 }
+
+
+/* src/index.css */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7fafc;
+}
+
+.container {
+  margin: 20px;
+  padding: 20px;
+}
+
+button {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+table th {
+  background-color: #4c51bf;
+  color: white;
+  font-weight: 600;
+}
+
+table tr:hover {
+  background-color: #f7fafc;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  background-color: #4c51bf;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #5a67d8;
+}
+
+.pagination button:disabled {
+  background-color: #e2e8f0;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #4a5568;
+}

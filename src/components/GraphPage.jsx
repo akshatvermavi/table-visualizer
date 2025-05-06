@@ -11,7 +11,6 @@ const GraphPage = () => {
   const { state } = useLocation();
   const { filteredData } = state || [];
 
-  // Prepare data for the graph
   const chartData = {
     labels: filteredData.map(item => item.Product),
     datasets: [
@@ -55,9 +54,13 @@ const GraphPage = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Graph Page</h1>
-      <Bar data={chartData} options={chartOptions} />
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-8 px-4">
+      <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-xl">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Sales and Profit Graph</h1>
+        <div className="flex justify-center items-center">
+          <Bar data={chartData} options={chartOptions} />
+        </div>
+      </div>
     </div>
   );
 };

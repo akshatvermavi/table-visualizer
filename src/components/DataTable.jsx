@@ -18,7 +18,6 @@ const DataTable = () => {
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const navigate = useNavigate();
 
-  // Filter the data based on filter values
   const filteredData = data.filter((item) => {
     return Object.keys(filters).every((key) => {
       if (!filters[key]) return true;
@@ -29,11 +28,9 @@ const DataTable = () => {
     });
   });
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const currentData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
-  // Handle filter change
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters((prevFilters) => ({
@@ -42,12 +39,10 @@ const DataTable = () => {
     }));
   };
 
-  // Handle submit and navigate to graph page with filtered data
   const handleSubmit = () => {
     navigate("/graph", { state: { filteredData } });
   };
 
-  // Change page
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -85,8 +80,7 @@ const DataTable = () => {
           Submit
         </button>
 
-        {/* Table Display */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-lg shadow-lg bg-white p-4">
           <table className="min-w-full table-auto rounded-lg shadow-lg">
             <thead className="bg-indigo-600 text-white">
               <tr>
@@ -113,7 +107,6 @@ const DataTable = () => {
           </table>
         </div>
 
-        {/* Pagination Controls */}
         <div className="flex items-center justify-between mt-6">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
